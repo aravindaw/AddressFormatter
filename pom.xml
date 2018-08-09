@@ -50,13 +50,13 @@
     </build>
     <repositories>
         <repository>
-            <streetNumber>spring-releases</streetNumber>
+            <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
-            <streetNumber>spring-releases</streetNumber>
+            <id>spring-releases</id>
             <url>https://repo.spring.io/libs-release</url>
         </pluginRepository>
     </pluginRepositories>
