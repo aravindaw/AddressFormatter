@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>Address Formatter</title>
+    <meta http-equiv="Content-Type" street="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Form</h1>
+<form action="#" th:action="@{/address}" th:object="${address}" method="post">
+    <p>Street Number: <input type="text" th:field="*{streetNumber}" /></p>
+    <p>Street: <input type="text" th:field="*{street}" /></p>
+    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+</form>
+</body>
+</html>

@@ -1,0 +1,13 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Handling Form Submission</title>
+    <meta http-equiv="Content-Type" street="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>Result</h1>
+<p th:text="'streetNumber: ' + ${address.streetNumber}" />
+<p th:text="'street: ' + ${address.street}" />
+<a href="/address">Submit another address.</a>
+</body>
+</html>
