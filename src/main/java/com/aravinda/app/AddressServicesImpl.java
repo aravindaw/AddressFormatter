@@ -25,19 +25,21 @@ public class AddressServicesImpl implements AddressServices {
             singleIntBlock(address);
         }
         //Multi parts address with street and house number including a character e.g.:"Blaufeldweg 123B"
-        else if (intBlocks == 0) {
+        else if (intBlocks == 0 && splittedAddress.length >= 2) {
             for (String x : streetArray) {
                 if (x.matches("([0-9])\\w+([a-z,A-Z])")) {
                     houseNumber = x;
-                }else if (x.matches("([nN]o[0-9])") || (x.matches("([#][0-9])"))||(x.matches("([nN]umber[0-9])"))){
+                } else if (x.matches("([nN]o[0-9])") || (x.matches("([#][0-9])")) || (x.matches("([nN]umber[0-9])"))) {
                     houseNumber = x;
                 }
             }
-            String[] part = address.split(houseNumber);
-            if (houseNumber.equals(splittedAddress[0])) {
-                street = part[1];
-            } else {
-                street = part[0];
+            if (houseNumber != null) {
+                String[] part = address.split(houseNumber);
+                if (houseNumber.equals(splittedAddress[0])) {
+                    street = part[1];
+                } else {
+                    street = part[0];
+                }
             }
             //Multi parts address with street and multiple int blocks, house number start with Number/No/#/e.g.:Calle 39 No 1540
         } else if (intBlocks > 1 && splittedAddress.length >= 3) {
@@ -47,7 +49,11 @@ public class AddressServicesImpl implements AddressServices {
             street = "Invalid";
         }
 
-        return "{\"street\": \"" + street.trim() + "\", \"housenumber\": \"" + houseNumber.trim() + "\"}";
+        if (houseNumber == null || street == null) {
+            return "{\"Invalid format\"}";
+        } else {
+            return "{\"street\": \"" + street.trim() + "\", \"housenumber\": \"" + houseNumber.trim() + "\"}";
+        }
     }
 
     private void intChecker(String adrs) {
