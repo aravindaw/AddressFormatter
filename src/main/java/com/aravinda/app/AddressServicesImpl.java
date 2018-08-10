@@ -29,6 +29,8 @@ public class AddressServicesImpl implements AddressServices {
             for (String x : streetArray) {
                 if (x.matches("([0-9])\\w+([a-z,A-Z])")) {
                     houseNumber = x;
+                }else if (x.matches("([nN]o[0-9])") || (x.matches("([#][0-9])"))||(x.matches("([nN]umber[0-9])"))){
+                    houseNumber = x;
                 }
             }
             String[] part = address.split(houseNumber);
@@ -39,19 +41,7 @@ public class AddressServicesImpl implements AddressServices {
             }
             //Multi parts address with street and multiple int blocks, house number start with Number/No/#/e.g.:Calle 39 No 1540
         } else if (intBlocks > 1 && splittedAddress.length >= 3) {
-            for (String specialSymbol : houseNumberSpecialSymbols) {
-                if (streetArray.contains(specialSymbol) && splittedAddress[length - 2].equals(specialSymbol)) {
-                    String[] part = address.split(specialSymbol);
-                    street = part[0];
-                    houseNumber = specialSymbol + part[1];
-                } else if (streetArray.contains(specialSymbol) && splittedAddress[0].equals(specialSymbol)) {
-                    String[] part = address.split(splittedAddress[1]);
-                    houseNumber = part[0] + splittedAddress[1];
-                    street = part[1];
-                } else {
-                    System.out.println("Checking special symbols..");
-                }
-            }
+            checkSpecialCharacters();
         } else {
             houseNumber = "Invalid";
             street = "Invalid";
@@ -91,7 +81,24 @@ public class AddressServicesImpl implements AddressServices {
             String[] part = address.split(tempHouseNumber);
             houseNumber = tempHouseNumber.replace(",", "").trim();
             street = part[0];
+        } else {
+            checkSpecialCharacters();
         }
+    }
 
+    private void checkSpecialCharacters() {
+        for (String specialSymbol : houseNumberSpecialSymbols) {
+            if (streetArray.contains(specialSymbol) && splittedAddress[length - 2].equals(specialSymbol)) {
+                String[] part = address.split(specialSymbol);
+                street = part[0];
+                houseNumber = specialSymbol + part[1];
+            } else if (streetArray.contains(specialSymbol) && splittedAddress[0].equals(specialSymbol)) {
+                String[] part = address.split(splittedAddress[1]);
+                houseNumber = part[0] + splittedAddress[1];
+                street = part[1];
+            } else {
+                System.out.println("Checking special symbols..");
+            }
+        }
     }
 }

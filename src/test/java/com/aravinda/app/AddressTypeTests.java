@@ -76,5 +76,26 @@ public class AddressTypeTests {
         String result = new AddressServicesImpl().input(address);
         Assert.assertEquals(formattedAddress,result);
     }
+    @Test
+    public void addressType10() {
+        String address = "Number 8, somapah av";
+        String formattedAddress = "{\"street\": \"somapah av\", \"housenumber\": \"Number 8\"}";
+        String result = new AddressServicesImpl().input(address);
+        Assert.assertEquals(formattedAddress,result);
+    }
+    @Test
+    public void addressType11() {
+        String address = "#8, somapah av";
+        String formattedAddress = "{\"street\": \"somapah av\", \"housenumber\": \"#8\"}";
+        String result = new AddressServicesImpl().input(address);
+        Assert.assertEquals(formattedAddress,result);
+    }
+    @Test
+    public void addressType12() {
+        String address = "# 8, somapah av";
+        String formattedAddress = "{\"street\": \"somapah av\", \"housenumber\": \"# 8\"}";
+        String result = new AddressServicesImpl().input(address);
+        Assert.assertEquals(formattedAddress,result);
+    }
 
 }
