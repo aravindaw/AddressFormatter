@@ -57,7 +57,7 @@ public class AddressServicesImpl implements AddressServices {
             street = "Invalid";
         }
 
-        return "{\"street\": \"" + street.trim() + "\", \"houseNumber\": \"" + houseNumber.trim() + "\"}";
+        return "{\"street\": \"" + street.trim() + "\", \"housenumber\": \"" + houseNumber.trim() + "\"}";
     }
 
     private void intChecker(String adrs) {
