@@ -1,6 +1,7 @@
 package com.aravinda.app;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AddressServicesImpl implements AddressServices {
 
@@ -12,7 +13,7 @@ public class AddressServicesImpl implements AddressServices {
     private String tempHouseNumber;
     private ArrayList<String> houseNumberArray = new ArrayList<String>();
     private ArrayList<String> streetArray = new ArrayList<String>();
-
+    private ArrayList<String> houseNumberSpecialSymbols = new ArrayList<String>(Arrays.asList("#", "No", "Number"));
 
     @Override
     public String input(String address) {
@@ -34,10 +35,25 @@ public class AddressServicesImpl implements AddressServices {
                 street = part[1];
             } else {
                 street = part[0];
-
             }
-        }else {
-//            try with more than 3 int blockes
+            //Multi parts address with street and multiple int blocks, house number start with Number/No/#/e.g.:Calle 39 No 1540
+        } else if (intBlocks > 1 && splittedAddress.length >= 3) {
+            for (String specialSymbol : houseNumberSpecialSymbols) {
+                if (streetArray.contains(specialSymbol) && splittedAddress[length - 2].equals(specialSymbol)) {
+                    String[] part = address.split(specialSymbol);
+                    street = part[0];
+                    houseNumber = part[1];
+                } else if (streetArray.contains(specialSymbol) && splittedAddress[0].equals(specialSymbol)) {
+                    String[] part = address.split(splittedAddress[1]);
+                    houseNumber = part[0]+splittedAddress[1];
+                    street = part[1];
+                }else {
+                    System.out.println("Checking special symbols..");
+                }
+            }
+        } else {
+            houseNumber = "Invalid";
+            street = "Invalid";
         }
 
         return "{\"street\": \"" + street.trim() + "\", \"houseNumber\": \"" + houseNumber.trim() + "\"}";
