@@ -1,8 +1,10 @@
 package com.aravinda.app;
 
+import org.json.simple.JSONObject;
+
 public class sample {
     public static void main(String[] args) {
-        String a = new AddressServicesImpl().input(" asdasda asdasd ");
-        System.out.println(a);
+        JSONObject a = new AddressServicesImpl().input(" asdasda asdasd 3424");
+        System.out.println(a.toString());
     }
 }

@@ -1,5 +1,7 @@
 package com.aravinda.app;
 
+import org.json.simple.JSONObject;
+
 public interface AddressServices {
-    String input(String address);
+    JSONObject input(String address);
 }

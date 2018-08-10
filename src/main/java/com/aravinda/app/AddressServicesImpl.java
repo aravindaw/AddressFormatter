@@ -1,5 +1,9 @@
 package com.aravinda.app;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -15,9 +19,11 @@ public class AddressServicesImpl implements AddressServices {
     private ArrayList<String> houseNumberArray = new ArrayList<String>();
     private ArrayList<String> streetArray = new ArrayList<String>();
     private ArrayList<String> houseNumberSpecialSymbols = new ArrayList<String>(Arrays.asList("#", "No", "Number"));
+    private JSONObject jsonObject = new JSONObject();
+    private static final Logger logger = LogManager.getLogger("AddressServicesImpl");
 
     @Override
-    public String input(String adrs) {
+    public JSONObject input(String adrs) {
 
         intChecker(adrs);
         //Multi parts address with street and house number e.g.:Winterallee 3,Auf der Vogelwiese 23 b
@@ -49,10 +55,14 @@ public class AddressServicesImpl implements AddressServices {
             street = "Invalid";
         }
 
-        if (houseNumber == null || street == null) {
-            return "{\"Invalid format\"}";
+        if (houseNumber == null || street == null || houseNumber == "Invalid" || street == "Invalid") {
+            jsonObject.put("given format", "Invalid");
+            return jsonObject;
         } else {
-            return "{\"street\": \"" + street.trim() + "\", \"housenumber\": \"" + houseNumber.trim() + "\"}";
+            jsonObject.put("street", street.trim());
+            jsonObject.put("housenumber", houseNumber.trim());
+            return jsonObject;
+//            return "{\"street\": \"" + street.trim() + "\", \"housenumber\": \"" + houseNumber.trim() + "\"}";
         }
     }
 
@@ -103,7 +113,7 @@ public class AddressServicesImpl implements AddressServices {
                 houseNumber = part[0] + splittedAddress[1];
                 street = part[1];
             } else {
-                System.out.println("Checking special symbols..");
+                logger.info("Checking special symbols..");
             }
         }
     }
