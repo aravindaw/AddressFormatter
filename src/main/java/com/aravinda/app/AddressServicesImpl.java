@@ -5,6 +5,7 @@ import java.util.Arrays;
 
 public class AddressServicesImpl implements AddressServices {
 
+    private String address = null;
     private String street = null;
     private String houseNumber = null;
     private int length = 0;
@@ -16,9 +17,9 @@ public class AddressServicesImpl implements AddressServices {
     private ArrayList<String> houseNumberSpecialSymbols = new ArrayList<String>(Arrays.asList("#", "No", "Number"));
 
     @Override
-    public String input(String address) {
+    public String input(String adrs) {
 
-        intChecker(address);
+        intChecker(adrs);
         //Multi parts address with street and house number e.g.:Winterallee 3,Auf der Vogelwiese 23 b
         if (intBlocks == 1) {
             singleIntBlock(address);
@@ -42,12 +43,12 @@ public class AddressServicesImpl implements AddressServices {
                 if (streetArray.contains(specialSymbol) && splittedAddress[length - 2].equals(specialSymbol)) {
                     String[] part = address.split(specialSymbol);
                     street = part[0];
-                    houseNumber = part[1];
+                    houseNumber = specialSymbol + part[1];
                 } else if (streetArray.contains(specialSymbol) && splittedAddress[0].equals(specialSymbol)) {
                     String[] part = address.split(splittedAddress[1]);
-                    houseNumber = part[0]+splittedAddress[1];
+                    houseNumber = part[0] + splittedAddress[1];
                     street = part[1];
-                }else {
+                } else {
                     System.out.println("Checking special symbols..");
                 }
             }
@@ -60,7 +61,7 @@ public class AddressServicesImpl implements AddressServices {
     }
 
     private void intChecker(String adrs) {
-        String address = adrs.replace(",", "").trim();
+        address = adrs.replace(",", "").trim();
         splittedAddress = address.split(" ");
         length = splittedAddress.length;
         for (String x : splittedAddress) {

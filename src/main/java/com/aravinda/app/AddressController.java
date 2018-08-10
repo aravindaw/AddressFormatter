@@ -17,12 +17,8 @@ public class AddressController {
 
     @PostMapping("/address")
     public String addressSubmit(@ModelAttribute Address address, ModelMap mp) {
-//        String formatedAddress = new AddressServicesImpl().input(address.getAddress());
-//        System.out.println(address.getAddress());
-
-
-
-        mp.addAttribute("address","###################");
+        mp.addAttribute("givenAddress", address.getAddress());
+        mp.addAttribute("address", new AddressServicesImpl().input(address.getAddress()));
         return "result";
     }
 
