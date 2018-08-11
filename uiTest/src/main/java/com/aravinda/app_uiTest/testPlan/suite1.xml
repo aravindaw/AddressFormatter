@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<!--parallel="methods"/"false"-->
+<suite name="Test OSP internet plan test floors" parallel="true" thread-count="10" verbose="10">
+    <test name="TC01">
+        <classes>
+            <class name="com.aravinda.app_uiTest.scripts.UITC1_AccessAddressFormatterMainPageTestScript"/>
+        </classes>
+    </test>
+    <test name="TC02">
+        <classes>
+            <class name="com.aravinda.app_uiTest.scripts.UITC2_MainPageResetButtonTestScript"/>
+        </classes>
+    </test>
+    <test name="TC03">
+        <classes>
+            <class name="com.aravinda.app_uiTest.scripts.UITC3_AddressTypeTest"/>
+        </classes>
+    </test>
+</suite>
